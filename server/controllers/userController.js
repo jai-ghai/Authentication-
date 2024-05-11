@@ -3,9 +3,9 @@ import ErrorHandler from "../utils/errorHandler.js";
 import User from "../models/User.js";
 
 export const register = catchAsyncError(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { firstname, lastname, email, password } = req.body;
 
-  if (!email || !password) {
+  if (!firstname || !lastname || !email || !password) {
     return next(new ErrorHandler("Please enter all fields", 400));
   }
 
@@ -15,7 +15,7 @@ export const register = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("User Already Exist", 409));
   }
 
-  user = await User.create({ email, password });
+  user = await User.create({ firstname, lastname, email, password });
 
   const token = user.getJWTToken(); // Generate JWT token
 
@@ -57,7 +57,10 @@ export const login = catchAsyncError(async (req, res, next) => {
 
 export const logout = catchAsyncError(async (req, res, next) => {
   try {
+    // Clear the token cookie
     res.clearCookie("token");
+
+    // Send the response after clearing the cookie
     res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
     next(new ErrorHandler("Error logging out user"));
@@ -65,17 +68,10 @@ export const logout = catchAsyncError(async (req, res, next) => {
 });
 
 export const loadUser = catchAsyncError(async (req, res, next) => {
-  const { email } = req.params;
+  const user = await User.findById(req.user._id);
 
-  try {
-    const user = await User.findOne({ email });
-
-    if (user) {
-      res.json({ success: true, username: user.email, userId: user._id, user });
-    } else {
-      res.status(400).json({ success: false, message: "User does not exist" });
-    }
-  } catch (error) {
-    next(new ErrorHandler("Error getting user"));
-  }
+  res.status(200).json({
+    success: true,
+    user,
+  });
 });

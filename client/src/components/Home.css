@@ -1,0 +1,15 @@
+body {
+  background-image: url(../assets/bg2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.home-container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.home-container h2 {
+  font-size: 24px;
+  color: #333;
+}
