@@ -12,10 +12,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://authentication-five-pi.vercel.app/api/v1/login",
+        {
+          email,
+          password,
+        }
+      );
 
       // Store the token in cookies
       document.cookie = `token=${response.data.token}; path=/`;

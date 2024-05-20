@@ -8,7 +8,7 @@ const Profile = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:4000/api/v1/logout", {});
+      await axios.post("https://authentication-five-pi.vercel.app/api/v1/logout", {});
       // Delete the token cookie
       document.cookie =
         "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -33,7 +33,7 @@ const Profile = () => {
         }
 
         // Token exists, proceed to load user details
-        const response = await axios.get("http://localhost:4000/api/v1/load", {
+        const response = await axios.get("https://authentication-five-pi.vercel.app/api/v1/load", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
