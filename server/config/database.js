@@ -6,6 +6,6 @@ export const connectDB = async () => {
 };
 
 // MONGO_URI = mongodb://127.0.0.1:27017/authencation
-
+// mongodb+srv://jaighai8:hJKhpTaZlYKAdLm3@cluster0.j6ze9wl.mongodb.net/auth
 // username :- jaighai8
 // password :- hJKhpTaZlYKAdLm3
